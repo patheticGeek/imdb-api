@@ -50,7 +50,7 @@ server.use((req, res, next) => {
 });
 
 server.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello World! Working pages /getDataFromIMDb?link=');
 });
 
 server.get('/getDataFromIMDb', async (req, res) => {
