@@ -18,6 +18,9 @@ async function getMovie(link) {
       stars = [];
 
       var movieWrapper = document.querySelector('div#main_top');
+      if (!movieWrapper) {
+        return { error: true, message: 'No such page' };
+      }
       var genreWrapper = movieWrapper.querySelectorAll('div.subtext > a:not(:last-child)');
       var creatorsWrapper = movieWrapper.querySelectorAll('div.credit_summary_item')[0];
       var starsWrapper = movieWrapper.querySelectorAll('div.credit_summary_item')[1];
@@ -32,12 +35,12 @@ async function getMovie(link) {
       summary = movieWrapper.querySelector('div.plot_summary > div.summary_text').innerText;
       ratings = movieWrapper.querySelector('div.ratingValue').innerText;
 
-      return { title, runtime, ratings, poster, summary, genre, creators, stars };
+      return { error: false, movie: { title, runtime, ratings, poster, summary, genre, creators, stars } };
     });
     if (dev) {
       console.log(movie);
     }
-    return { error: false, movie };
+    return movie;
   } catch (err) {
     console.log(err);
     return { error: true, message: 'Runtime error occured' };
