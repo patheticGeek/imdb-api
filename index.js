@@ -34,6 +34,7 @@ async function getMovie(link) {
       poster = movieWrapper.querySelector('div.slate_wrapper > div.poster > a > img').src;
       summary = movieWrapper.querySelector('div.plot_summary > div.summary_text').innerText;
       ratings = movieWrapper.querySelector('div.ratingValue').innerText;
+      poster = poster.substring(0, poster.indexOf('@.') + 2) + '.jpg';
 
       return { error: false, movie: { title, runtime, ratings, poster, summary, genre, creators, stars } };
     });
@@ -77,6 +78,7 @@ async function getWebSeries(link) {
       poster = movieWrapper.querySelector('div.slate_wrapper > div.poster > a > img').src;
       summary = movieWrapper.querySelector('div.plot_summary > div.summary_text').innerText;
       ratings = movieWrapper.querySelector('div.ratingValue').innerText;
+      poster = poster.substring(0, poster.indexOf('@.') + 2) + '.jpg';
 
       return {
         error: false,
@@ -133,4 +135,4 @@ server.listen(port, err => {
   if (err) throw err;
   console.log(`> Ready on http://localhost:${port}`);
 });
-// want to rebuild
+//git push heroku master
