@@ -89,7 +89,7 @@ server.get('/', (req, res) => {
   res.send('Hello World! Working pages /getDataFromIMDb?link=');
 });
 
-server.get('/getDataFromIMDb', async (req, res) => {
+server.get('/getMovie', async (req, res) => {
   let link = req.query.link;
   if (link === '' || !link) {
     if (dev) {
