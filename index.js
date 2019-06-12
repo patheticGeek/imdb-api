@@ -40,6 +40,39 @@ async function getMovie(link) {
     if (dev) {
       console.log(movie);
     }
+    await page.close();
+    await browser.close();
+    return movie;
+  } catch (err) {
+    console.log(err);
+    return { error: true, message: 'Runtime error occured' };
+  }
+}
+
+async function getWebSeries(link) {
+  try {
+    var browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    var page = await browser.newPage();
+    await page.goto(link);
+
+    var movie = await page.evaluate(async () => {
+      var title, runtime, genre, poster, summary, creators, stars, ratings;
+      genre = [];
+      creators = [];
+      stars = [];
+
+      var movieWrapper = document.querySelector('div#main_top');
+      if (!movieWrapper) {
+        return { error: true, message: 'No such page' };
+      }
+
+      return { error: false };
+    });
+    if (dev) {
+      console.log(movie);
+    }
+    await page.close();
+    await browser.close();
     return movie;
   } catch (err) {
     console.log(err);
