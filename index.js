@@ -12,7 +12,7 @@ async function getMovie(link) {
     await page.goto(link);
 
     var movie = await page.evaluate(async () => {
-      var title, runtime, genre, poster, summary, creators, stars, ratings;
+      var title, runtime, genre, poster, summary, creators, stars, ratings, posterSmall;
       genre = [];
       creators = [];
       stars = [];
@@ -31,12 +31,15 @@ async function getMovie(link) {
 
       title = movieWrapper.querySelector('div.title_wrapper > h1').innerText;
       runtime = movieWrapper.querySelector('time').innerText;
-      poster = movieWrapper.querySelector('div.slate_wrapper > div.poster > a > img').src;
+      posterSmall = movieWrapper.querySelector('div.slate_wrapper > div.poster > a > img').src;
       summary = movieWrapper.querySelector('div.plot_summary > div.summary_text').innerText;
       ratings = movieWrapper.querySelector('div.ratingValue').innerText;
-      poster = poster.substring(0, poster.indexOf('@.') + 2) + '.jpg';
+      poster = posterSmall.substring(0, poster.indexOf('@.') + 2) + '.jpg';
 
-      return { error: false, movie: { title, runtime, ratings, poster, summary, genre, creators, stars } };
+      return {
+        error: false,
+        movie: { title, runtime, ratings, poster, summary, genre, creators, stars, posterSmall }
+      };
     });
 
     await page.close();
@@ -56,7 +59,7 @@ async function getWebSeries(link) {
     await page.goto(link);
 
     var movie = await page.evaluate(async () => {
-      var title, runtime, genre, poster, summary, creators, stars, ratings;
+      var title, runtime, genre, poster, summary, creators, stars, ratings, posterSmall;
       genre = [];
       creators = [];
       stars = [];
@@ -75,14 +78,14 @@ async function getWebSeries(link) {
 
       title = movieWrapper.querySelector('div.title_wrapper > h1').innerText;
       runtime = movieWrapper.querySelector('time').innerText;
-      poster = movieWrapper.querySelector('div.slate_wrapper > div.poster > a > img').src;
+      posterSmall = movieWrapper.querySelector('div.slate_wrapper > div.poster > a > img').src;
       summary = movieWrapper.querySelector('div.plot_summary > div.summary_text').innerText;
       ratings = movieWrapper.querySelector('div.ratingValue').innerText;
-      poster = poster.substring(0, poster.indexOf('@.') + 2) + '.jpg';
+      poster = posterSmall.substring(0, poster.indexOf('@.') + 2) + '.jpg';
 
       return {
         error: false,
-        webseries: { title, runtime, ratings, poster, summary, genre, creators, stars }
+        webseries: { title, runtime, ratings, poster, summary, genre, creators, stars, posterSmall }
       };
     });
 
