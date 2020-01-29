@@ -1,17 +1,9 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
-const axios = require("axios");
 
 const server = express();
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
-
-setInterval(async () => {
-  const data = await axios(
-    "https://ping-pong-sn.herokuapp.com/ping?link=https://imdb-api-ec.herokuapp.com"
-  );
-  console.log("setInterval triggred, status: ", data.status);
-}, 1560000);
 
 async function getMovie(link) {
   try {
